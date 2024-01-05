@@ -14,6 +14,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import User
 from .serializers import UserSerializer
+from friendships_app.serializers import Friendships, FriendshipSerializer
 
 # Create your views here.
 
@@ -54,6 +55,9 @@ class UserPermissions(APIView):
 class User_info(UserPermissions):
     def get(self, request):
         user = UserSerializer(request.user)
+
+        # friendships = Friendships.objects.filter(user=user)
+        # friends = [friendship.friend for friendship in friendships]
         return Response(user.data)
     
     def put(self, request):
@@ -77,3 +81,28 @@ class Log_out(UserPermissions):
             return Response(HTTP_204_NO_CONTENT)
         except Exception as e:
             return("Error logging out")
+        
+
+class BaseChoicesView(APIView):
+    def get(self, request, *args, **kwargs):
+        base_choices = User.BASE_CHOICES
+        return Response(base_choices, status=HTTP_204_NO_CONTENT)
+    
+
+class All_users(UserPermissions):
+    def get(self, request):
+        users = User.objects.all()
+        ser_users = UserSerializer(users, many=True)
+
+        return Response(ser_users.data)
+    
+
+class Users_bybase(UserPermissions):
+    def get(self, request, base):
+        users = User.objects.filter(base=base)
+        ser_users = UserSerializer(users, many=True)
+
+        return Response(ser_users.data)
+    
+
+

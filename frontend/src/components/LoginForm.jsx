@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form'
 import { api } from '../utilities'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import  Button  from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom'
 
@@ -27,10 +27,13 @@ export const LoginForm = () => {
 
             if (token !== undefined) {
                 localStorage.setItem("token", token)
+                localStorage.setItem("email", email)
                 api.defaults.headers.common["Authorization"] = `Token ${token}`;
                 setUser(user)
                 console.log(`Successfully logged in ${email}`)
-                
+                setEmail("")
+                setPassword("")
+                window.location.reload()
                 // navigate("/")
             }
 
@@ -48,11 +51,11 @@ export const LoginForm = () => {
         <Form onSubmit={(e)=>logIn(e)}>
             <Form.Group>
                 <Form.Label>Email Address</Form.Label>
-                <Form.Control style={{width:"30vmin"}} placeholder='Enter Email' onChange={(e)=>setEmail(e.target.value)}/>
+                <Form.Control style={{width:"40vmin"}} placeholder='Enter Email' onChange={(e)=>setEmail(e.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Password</Form.Label>
-                <Form.Control style={{width:"30vmin"}} type="password" placeholder='Enter Password' onChange={(e)=>setPassword(e.target.value)}/>
+                <Form.Control style={{width:"40vmin"}} type="password" placeholder='Enter Password' onChange={(e)=>setPassword(e.target.value)}/>
             </Form.Group>
             <Button style={{marginTop:"2vmin"}} variant="primary" type="submit">Submit</Button>
 
