@@ -5,6 +5,7 @@ import { ProfilePage } from './pages/ProfilePage'
 import { AllUsersPage } from './pages/AllUsersPage'
 import { BasesPage } from './pages/BasesPage'
 import { FilterSpousesPage } from './pages/SpousesByBase'
+import { BaseResultsPage } from './pages/BaseResultsPage'
 
 export const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
            {
             path: 'filter/:base',
             element: <FilterSpousesPage/>
+           },
+           {
+            path: 'results/:base',
+            element: <BaseResultsPage/>
            }
 
         ]

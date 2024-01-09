@@ -16,6 +16,7 @@ export const HomePage = () => {
         <Button style={{margin:"5vmin"}} onClick={(e)=>setShowLogin(!showLogin)}>Login</Button>
         <Button onClick={(e)=>setShowSignup(!showSignup)}>Sign Up</Button>
         </div>
+        
         {showLogin ?
         (<div style={{margin:"10vmin"}}>
         <h1>Welcome Back</h1>

@@ -34,7 +34,7 @@ export const LoginForm = () => {
                 setEmail("")
                 setPassword("")
                 window.location.reload()
-                // navigate("/")
+                navigate("/")
             }
 
             else {

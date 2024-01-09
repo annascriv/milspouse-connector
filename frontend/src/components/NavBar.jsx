@@ -13,12 +13,12 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/">Home</Link>
-            <Link to="profile">My Profile</Link>
-            <Link to="allusers">Find Milspouses</Link>
-            <Link to="allbases">Bases</Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+            <Link style={{marginRight:"2vmin", marginTop:"1vmin"}} to="/">Home</Link>
+            <Link style={{marginRight:"2vmin", marginTop:"1vmin"}} to="profile">My Profile</Link>
+            <Link style={{marginRight:"2vmin", marginTop:"1vmin"}} to="allusers">Find Milspouses</Link>
+            <Link style={{marginRight:"2vmin", marginTop:"1vmin"}} to="allbases">Bases</Link>
+            {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown"> */}
+              {/* <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
               </NavDropdown.Item>
@@ -26,9 +26,9 @@ function NavBar() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">
               Another action
-              </NavDropdown.Item>
+              </NavDropdown.Item> */}
 
-            </NavDropdown>
+            {/* </NavDropdown> */}
             
           </Nav>
         

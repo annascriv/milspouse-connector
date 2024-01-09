@@ -104,5 +104,21 @@ class Users_bybase(UserPermissions):
 
         return Response(ser_users.data)
     
+class UserProfilePicture(UserPermissions):
+
+    parser_classes = (MultiPartParser,)
+
+    def post(self, request, *args, **kwargs):
+
+        user = request.user
+
+        user.profile_picture = request.data.get("profile_picture")
+
+        user.save()
+
+        ser_user = UserSerializer(user)
+
+        return Response(ser_user.data, status=HTTP_201_CREATED)
+    
 
 

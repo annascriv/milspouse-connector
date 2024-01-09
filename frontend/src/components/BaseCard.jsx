@@ -15,6 +15,7 @@ export const BaseCard = ({BaseProfile}) => {
             <Card.Body>
                 <Card.Title>{BaseProfile.site_name}</Card.Title>
                 <Card.Subtitle>{BaseProfile.country}</Card.Subtitle>
+                <Card.Subtitle style={{marginTop:"1vmin"}}>{BaseProfile.state_terr}</Card.Subtitle>
                 <Button style={{marginTop:"2vmin"}} onClick={()=>navigate(`/filter/${BaseProfile.site_name}`)}>Find Milspouses Here</Button>
             </Card.Body>
             

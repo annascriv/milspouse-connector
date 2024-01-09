@@ -14,3 +14,14 @@ class Bases(UserPermissions):
         responseJSON = response.json()
 
         return Response(responseJSON)
+    
+class Base_by_name(UserPermissions):
+    def get(self, request, base):
+        
+        endpoint=f"https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/military-bases/records?select=site_name%2C%20state_terr%2C%20country&where=site_name%3D%27{base}%20AFB%27&limit=20&refine=component%3A%22AF%20Active%22"
+
+        response = requests.get(endpoint)
+
+        responseJSON = response.json()
+
+        return Response(responseJSON)

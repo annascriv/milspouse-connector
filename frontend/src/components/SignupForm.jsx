@@ -43,6 +43,7 @@ export const SignupForm = () => {
         api.defaults.headers.common["Authorization"] = `Token ${token}`;
         localStorage.setItem("token", token);
         localStorage.setItem("name", name)
+        navigate("/")
 
 
     }

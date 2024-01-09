@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom"
 import { api } from "../utilities"
 import Button from "react-bootstrap/esm/Button"
 
 export const LogoutButton = () => {
+
+    const navigate = useNavigate();
 
     const logOut = async() => {
         let token = localStorage.getItem("token")
@@ -20,6 +23,7 @@ export const LogoutButton = () => {
             localStorage.clear()
             delete api.defaults.headers.common["Authorization"];
             window.location.reload()
+            navigate('/')
         }
         else {
             console.log("Somethng went wrong logging out.")
