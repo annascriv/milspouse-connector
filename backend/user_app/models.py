@@ -22,4 +22,6 @@ class User(AbstractUser):
     number_of_kids = models.IntegerField(default=0, validators=[v.MinValueValidator(0), v.MaxValueValidator(12)])
 
     profile_picture = models.ImageField(upload_to='profile_pic/', blank=True, null=True, default=None)
+
+    friends = models.ManyToManyField("User", blank=True)
     

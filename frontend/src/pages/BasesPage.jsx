@@ -38,12 +38,12 @@ export const BasesPage = () => {
     return (
         <>
         <Row>
-            <Form className="searchbar" style={{display:"flex", marginBottom:"5vmin", marginTop:"2vmin", marginLeft:"2vmin"}} onSubmit={(e)=>[e.preventDefault(), navigate(`/results/${userInput}/`)]}>
-                <Form.Control style={{width:"40vmin", marginRight:"1vmin"}} type="text" placeholder="Search by name (Ex. Vance)" onChange={(e)=>setUserInput(e.target.value)} value={userInput}></Form.Control>
+            <Form className="searchbar" style={{display:"flex", marginBottom:"5vmin", marginTop:"2vmin", marginLeft:"2vmin"}} onSubmit={(e)=>[e.preventDefault(), navigate(`/results/${userInput.replace(" ","%20")}/`)]}>
+                <Form.Control style={{width:"40vmin", marginRight:"1vmin"}} type="text" placeholder="Search by full name (Ex. Vance AFB)" onChange={(e)=>setUserInput(e.target.value)} value={userInput}></Form.Control>
                 <Button type="submit">Search</Button>
             </Form>
         </Row>
-        <Row style={{textAlign:"center"}}>
+        <Row style={{textAlign:"center", margin:"2vmin"}}>
         {
             bases.map((base, idx)=> (
                 <BaseCard key={idx} BaseProfile={base}/>

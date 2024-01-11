@@ -14,6 +14,8 @@ export const BaseResultsPage = () => {
     let token = localStorage.getItem("token")
     const navigate = useNavigate();
 
+
+
     const getResults = async() => {
         let response = await api.get(`bases/${base}/`, {
             headers: {
@@ -22,7 +24,7 @@ export const BaseResultsPage = () => {
         })
    
         setResults(response.data.results[0])
-        console.log(response.data.results)
+        // console.log(response.data.results[0])
     }
 
     useEffect(()=> {

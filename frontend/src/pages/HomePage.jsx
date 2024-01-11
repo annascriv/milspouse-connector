@@ -8,13 +8,19 @@ export const HomePage = () => {
 
     const [showLogin, setShowLogin] = useState(false)
     const [showSignup, setShowSignup] = useState(false)
+    const [showLoginButton, setShowLoginButton] = useState(false)
+    const [showSignupButton, setShowSignupButton] = useState(false)
 
     return (
         <>
         <div style={{textAlign:"center", marginTop:"2vmin"}}>
         <h1>Spouse Connector Project</h1>
-        <Button style={{margin:"5vmin"}} onClick={(e)=>setShowLogin(!showLogin)}>Login</Button>
+        {localStorage.getItem("token") ? "" :
+        (
+        <div>
+        <Button style={{margin:"5vmin"}} onClick={(e)=>setShowLogin(!showLogin)}>Login</Button> 
         <Button onClick={(e)=>setShowSignup(!showSignup)}>Sign Up</Button>
+        </div>) }
         </div>
         
         {showLogin ?

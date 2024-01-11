@@ -31,7 +31,7 @@ export const AllUsersPage = () => {
         <>
         <Row>
         {users.map((user, idx)=> (
-            <ProfileCard key={idx} userProfile={user}/>
+            <ProfileCard key={idx} userProfile={user} />
         ))}
         </Row>
         

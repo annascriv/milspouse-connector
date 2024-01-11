@@ -5,7 +5,7 @@ from user_app.models import User
 
 class Friendships(models.Model):
 
-    user = models.ForeignKey(User, related_name = 'user', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name = 'friendships', on_delete=models.CASCADE)
     
     friend = models.ForeignKey(User, related_name='friend', on_delete = models.CASCADE)
 

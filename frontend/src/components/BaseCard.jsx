@@ -1,6 +1,8 @@
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/esm/Button'
 import { useNavigate } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/esm/Row'
 
 
 export const BaseCard = ({BaseProfile}) => {
@@ -11,6 +13,7 @@ export const BaseCard = ({BaseProfile}) => {
 
     return (
         <>
+
         <Card style={{width:"18rem", margin:"2vmin"}}>
             <Card.Body>
                 <Card.Title>{BaseProfile.site_name}</Card.Title>
@@ -20,6 +23,7 @@ export const BaseCard = ({BaseProfile}) => {
             </Card.Body>
             
         </Card>
+
         </>
     )
 }

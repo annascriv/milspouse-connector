@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/users/', include("user_app.urls")),
     path('api/v1/bases/', include("api_app.urls")),
+    path('api/v1/friends/', include("friendships_app.urls")),
 ]
 
 if settings.DEBUG:
