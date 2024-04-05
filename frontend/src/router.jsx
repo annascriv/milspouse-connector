@@ -6,6 +6,7 @@ import { AllUsersPage } from './pages/AllUsersPage'
 import { BasesPage } from './pages/BasesPage'
 import { FilterSpousesPage } from './pages/SpousesByBase'
 import { BaseResultsPage } from './pages/BaseResultsPage'
+import { OtherProfile } from './pages/OtherProfile'
 
 export const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
            {
             path: 'results/:base',
             element: <BaseResultsPage/>
+           },
+           {
+            path: 'userprofile/:user_id',
+            element: <OtherProfile/>
            }
 
         ]

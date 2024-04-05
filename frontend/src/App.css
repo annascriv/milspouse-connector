@@ -1,0 +1,8 @@
+.home-container {
+    /* border: 2px solid red; */
+    height: 100vh;
+    background-image: url('/Users/annascriven/projects/spouse_connector_proj/frontend/src/assets/pexels-jacob-moore-18205727.jpg');
+    background-position: center;
+    background-size: cover;
+    opacity: 70%;
+}

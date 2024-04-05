@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Row from "react-bootstrap/esm/Row.js";
 
 
+
 export const AllUsersPage = () => {
 
     const [users, setUsers] = useState([])
@@ -29,12 +30,15 @@ export const AllUsersPage = () => {
 
     return (
         <>
+        <div className="home-container" style={{display:'flex', alignContent:"center", marginRight:'2vmin'}}>
+            
         <Row>
         {users.map((user, idx)=> (
             <ProfileCard key={idx} userProfile={user} />
         ))}
         </Row>
         
+        </div>
 
         </>
     )

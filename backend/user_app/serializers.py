@@ -16,6 +16,11 @@ class UserSerializer(ModelSerializer):
     def get_friends(self, obj):
         
         if obj.friends:
-            return obj.friends.count()
-        return 0
+        #     return obj.friends.count()
+        # return 0
+            
+            friends_queryset = obj.friends.all()
+            # friends_list = []
+            return [(friend.name) for friend in friends_queryset]
+            
 

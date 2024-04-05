@@ -23,7 +23,7 @@ export const LogoutButton = () => {
             localStorage.clear()
             delete api.defaults.headers.common["Authorization"];
             window.location.reload()
-            navigate('/')
+            
         }
         else {
             console.log("Somethng went wrong logging out.")

@@ -5,6 +5,7 @@ from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_204_NO_CONTENT,
     HTTP_400_BAD_REQUEST,
+    HTTP_200_OK
 )
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
@@ -119,6 +120,16 @@ class UserProfilePicture(UserPermissions):
         ser_user = UserSerializer(user)
 
         return Response(ser_user.data, status=HTTP_201_CREATED)
+    
+class User_by_id(UserPermissions):
+
+    def get(self, request, user_id):
+
+        request_user = User.objects.get(id=user_id)
+
+        ser_request_user = UserSerializer(request_user)
+
+        return Response(ser_request_user.data, status=HTTP_200_OK)
     
 
 

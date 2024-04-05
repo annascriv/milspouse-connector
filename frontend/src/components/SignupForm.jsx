@@ -16,18 +16,20 @@ export const SignupForm = () => {
     const [dogs, setDogs] = useState(false)
     const [num_kids, setNum_kids] = useState(0)
 
+    const [basechoices, setBaseChoices] = useState([])
+
     const navigate = useNavigate();
 
-    // const getBaseChoices = async() => {
-    //     let response = await api.get('users/basechoices/')
-    //     setBaseChoices(response.data)
-    //     console.log(response.data)
-    // }
+    const getBaseChoices = async() => {
+        let response = await api.get('bases/')
+        setBaseChoices(response.data.results)
+        console.log(response.data.results)
+    }
     
-    // useEffect(()=> {
-    //     getBaseChoices();
+    useEffect(()=> {
+        getBaseChoices();
         
-    // }, [])
+    }, [])
 
     const signUp = async(e) => {
         e.preventDefault();
@@ -43,7 +45,7 @@ export const SignupForm = () => {
         api.defaults.headers.common["Authorization"] = `Token ${token}`;
         localStorage.setItem("token", token);
         localStorage.setItem("name", name)
-        navigate("/")
+        window.location.reload()
 
 
     }
@@ -53,7 +55,7 @@ export const SignupForm = () => {
 
     return (
         <>
-        <Form onSubmit={(e)=>signUp(e)}>
+        <Form style={{width:"50%"}}onSubmit={(e)=>signUp(e)}>
             <Form.Group>
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="text" placeholder="Email" onChange={(e)=>setEmail(e.target.value)}/>
@@ -72,11 +74,16 @@ export const SignupForm = () => {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Bio</Form.Label>
-                <Form.Control type="text" placeholder='Bio'/>
+                <Form.Control type="text" placeholder='Bio' onChange={(e)=>setBio(e.target.value)}/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Base</Form.Label>
-                <Form.Control type="text" placeholder="base" onChange={(e)=>setBase(e.target.value)}/>
+                <Form.Select aria-label="Choose Base" onChange={(e)=>setBase(e.target.value)}>
+                <option>Choose Base</option>
+                {basechoices.map((choice, idx)=>(
+                    <option key={idx}>{choice.site_name}</option>
+                ))}
+                </Form.Select>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Kids</Form.Label>

@@ -7,6 +7,9 @@ import { ProfileCard } from "../components/ProfileCard";
 import Button from "react-bootstrap/esm/Button";
 import Form from 'react-bootstrap/Form';
 import CardImg from "react-bootstrap/esm/CardImg";
+import Row from "react-bootstrap/esm/Row";
+import '/src/App.css'
+
 
 
 export const ProfilePage = () => {
@@ -21,6 +24,11 @@ export const ProfilePage = () => {
     const [newBase, setNewBase] = useState(userProfile.base)
     const [newDogs, setNewDogs] = useState(userProfile.dogs)
     const [newKids, setNewKids] = useState(userProfile.kids)
+    const [friendsList, setFriendsList] = useState([])
+
+    const [friendRequest, setFriendRequests] = useState([])
+    const [showRequests, setShowRequests] = useState(false)
+    
 
     let profileURL = "http://127.0.0.1:8000/"
 
@@ -40,6 +48,8 @@ export const ProfilePage = () => {
 
             })
             setUserProfile(response.data)
+            setFriendsList(response.data.friends)
+            console.log(response.data.friends)
         }
     }
     useEffect(()=> {
@@ -98,13 +108,76 @@ export const ProfilePage = () => {
         }
     }
 
+    const getFriendRequests = async(e) => {
+        e.preventDefault();
+
+        let response = await api.get('friends/all-requests/', {
+            headers: {
+                Authorization: `Token ${token}`
+            }
+
+        });
+
+
+
+        if (response.status === 200) {
+
+            setFriendRequests(response.data)
+            console.log(response.data)
+            setShowRequests(!showRequests)
+
+        }
+        else {
+            console.log("Something went wrong fetching the requests.")
+        }
+    }
+
+    const AcceptRequest = async(userId) => {
+
+        
+        let response = await api.post(`friends/request-approval/${userId}/`, null, {
+            headers: {
+                Authorization: `Token ${token}`
+            }
+        });
+
+        if (response.status === 201) {
+            window.location.reload()
+        }
+        else {
+            console.log("Something went wrong accepting the request.")
+        }
+
+
+    }
+
+     
+    const DeleteFriend = async(user_name) => {
+
+        user_name = user_name.replace(" ", "%20")
+
+        let response = await api.delete(`friends/delete-friend/${user_name}/`, {
+            headers: {
+                Authorization: `Token ${token}`
+            }
+        });
+
+        if (response.status === 200) {
+            window.location.reload()
+        }
+        else {
+            alert("There was an error removing your friend.")
+        }
+
+    }
+
 
     return (
         <>
-        <Container style={{alignContent:"center"}}>
+        <div className='home-container' style={{margin:0, display:"flex", justifyContent:"center"}}>
         <h1>Profile</h1>
-        <Card style={{width:"90vmin"}}>
-        <CardImg style={{height:"15rem", width:"12rem", borderRadius:"15vmin", border:"2px solid black", marginLeft:"1vmin", marginTop:"1vmin"}} src={userProfile.profile_picture ? profileURL+userProfile.profile_picture : null}></CardImg>
+        <Card style={{width:"90vmin", backgroundColor:"whitesmoke", marginTop:"20vmin"}}>
+        <CardImg style={{height:"15rem", width:"12rem", borderRadius:"15vmin", border:"2px solid black", marginLeft:"2vmin", marginTop:"2vmin"}} src={userProfile.profile_picture ? profileURL+userProfile.profile_picture : null}></CardImg>
             <Card.Body>
                 <Card.Title>{userProfile.name}</Card.Title>
                 
@@ -114,13 +187,27 @@ export const ProfilePage = () => {
                         <li>Base: {userProfile.base}</li>
                         <li>Dogs: {userProfile.dogs? "yes" : "no"}</li>
                         <li>Kids: {userProfile.number_of_kids ? userProfile.number_of_kids : "no"}</li>
-                        <li>Friends: {userProfile.friends}</li>
+                        {/* <li>Friends: {userProfile.friends}</li> */}
 
                     </ul>
+                    <ul>
+                        <h3>Friends</h3>
+                        {friendsList.map((friend, idx) => (
+                            friend ? (
+                            <>
+                            
+                            <li key={idx}>{friend}</li>
+                            <Button style={{fontSize:"small"}} onClick={()=>DeleteFriend(friend)}>Remove {friend} from friends</Button>    
+                            </>) : ""
+                        ))}
+                    </ul>
                 
-            </Card.Body>
-            <Button style={{width:"20vmin", marginLeft:"2vmin", marginBottom:"1vmin"}} onClick={()=>setShowEditForm(!showEditForm)}>Edit Profile</Button>
 
+            <Row >
+            <Button style={{width:"20vmin", margin:"2vmin"}} onClick={()=>setShowEditForm(!showEditForm)}>Edit Profile</Button>
+            <Button style={{margin:"2vmin", width:"30vmin"}} onClick={(e)=>getFriendRequests(e)}>View Friend Requests</Button>
+            </Row>
+            </Card.Body>
         </Card>
         {showEditForm ? 
         <div>
@@ -161,8 +248,18 @@ export const ProfilePage = () => {
         </div>
     :
     ""}
-        
-        </Container>
+        {/* <Button style={{marginTop:"2vmin"}} onClick={(e)=>getFriendRequests(e)}>View Friend Requests</Button> */}
+        <Row>
+        {showRequests ? (friendRequest.map((request, idx)=>(
+            <div key={idx}>
+            <label>{request.user_name} wants to connect</label>
+            <Button style={{margin:"2vmin"}} key={idx} onClick={()=>AcceptRequest(request.user)}>Accept</Button>
+            </div>
+        ))
+            
+        ) : ""}
+        </Row>
+        </div>
         </>
     )
 }
